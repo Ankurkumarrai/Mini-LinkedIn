@@ -52,22 +52,31 @@ const CreatePost = ({ onPostCreated }: CreatePostProps) => {
   if (!user) return null;
 
   return (
-    <Card className="mb-6">
-      <CardHeader>
-        <CardTitle>Create a Post</CardTitle>
+    <Card className="mb-6 border-2 border-primary/10">
+      <CardHeader className="pb-4">
+        <CardTitle className="text-lg">Share an update</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           <Textarea
-            placeholder="What's on your mind?"
+            placeholder="What's happening in your professional world?"
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="min-h-[100px]"
+            className="min-h-[120px] resize-none focus:ring-2 focus:ring-primary/20"
             required
           />
-          <Button type="submit" disabled={loading || !content.trim()}>
-            {loading ? 'Posting...' : 'Post'}
-          </Button>
+          <div className="flex justify-between items-center">
+            <p className="text-xs text-muted-foreground">
+              {content.length}/500 characters
+            </p>
+            <Button 
+              type="submit" 
+              disabled={loading || !content.trim() || content.length > 500}
+              className="px-8"
+            >
+              {loading ? 'Publishing...' : 'Publish'}
+            </Button>
+          </div>
         </form>
       </CardContent>
     </Card>
